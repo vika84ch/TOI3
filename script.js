@@ -47,10 +47,6 @@ class LoginForm {
         this.fields.forEach(field => {
             if (field.element) {
                 form.appendChild(field.element);
-                if (field.type === 'select') {
-                    const br = document.createElement('br'); // Добавляем разрыв строки после выбора роли
-                    form.appendChild(br);
-                }
             } else {
                 const input = document.createElement('input');
                 input.type = field.type;
@@ -197,3 +193,13 @@ window.onload = () => {
     loginForm.attachEvents(); // Прикрепление события после того, как форма окажется в DOM
     console.log('События привязаны');
 };
+
+// Добавляем CSS для создания отступа между элементами
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.login-form');
+    if (form) {
+        form.style.display = 'flex';
+        form.style.flexDirection = 'column';
+        form.style.gap = '10px'; // Добавляем отступ между элементами
+    }
+});
