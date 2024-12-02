@@ -47,7 +47,10 @@ class LoginForm {
         this.fields.forEach(field => {
             if (field.element) {
                 form.appendChild(field.element);
-            } else {
+                if (field.type === 'select') {
+                    const br = document.createElement('br'); // Добавляем разрыв строки после выбора роли
+                    form.appendChild(br);
+                } else {
                 const input = document.createElement('input');
                 input.type = field.type;
                 input.id = field.id;
