@@ -194,7 +194,7 @@ window.onload = () => {
     console.log('События привязаны');
 };
 
-// Добавляем CSS для создания отступа между элементами
+// Добавляем CSS для создания отступов между элементами
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.login-form');
     if (form) {
