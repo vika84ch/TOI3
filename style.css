@@ -8,13 +8,16 @@ body {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Добавляем отступ между элементами */
 }
 
 .login-form h2 {
   text-align: center;
 }
 
-.login-form input {
+.login-form input, .login-form select {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -30,6 +33,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 20px; /* Добавляем отступ сверху для кнопки */
 }
 
 .login-form button:hover {
