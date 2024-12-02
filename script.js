@@ -37,7 +37,7 @@ class LoginForm {
 
     // Метод для рендеринга формы
     render() {
-        const form = document.createElement('div');
+        const form = document.createElement('form'); // Используем тег <form> вместо <div>
         form.className = 'login-form';
 
         const title = document.createElement('h2');
@@ -68,7 +68,11 @@ class LoginForm {
 
     // Метод для привязки событий к форме
     attachEvents() {
-        document.getElementById('login-button').addEventListener('click', this.button.action);
+        const form = document.querySelector('.login-form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Предотвращаем отправку формы
+            this.button.action();
+        });
     }
 }
 
