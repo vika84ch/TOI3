@@ -50,7 +50,8 @@ class LoginForm {
                 if (field.type === 'select') {
                     const br = document.createElement('br'); // Добавляем разрыв строки после выбора роли
                     form.appendChild(br);
-                } else {
+                }
+            } else {
                 const input = document.createElement('input');
                 input.type = field.type;
                 input.id = field.id;
