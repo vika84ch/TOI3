@@ -145,11 +145,13 @@ function createLoginForm() {
         const password = document.getElementById('password').value;
         const role = document.getElementById('role').value;
 
+        console.log('Проверка email:', email);
         if (!validateEmail(email)) {
             alert('Неправильный формат email');
             return;
         }
 
+        console.log('Проверка пароля:', password);
         if (password.trim() === '') {
             alert('Пароль не может быть пустым');
             return;
