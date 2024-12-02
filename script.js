@@ -139,29 +139,32 @@ function createLoginForm() {
     new PasswordFieldDecorator(loginForm);
     new RoleFieldDecorator(loginForm);
 
-    // Установка действия для кнопки "Войти"
-    loginForm.setButtonAction(() => {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const role = document.getElementById('role').value;
+// Установка действия для кнопки "Войти"
+loginForm.setButtonAction(() => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const role = document.getElementById('role').value;
 
-        if (!validateEmail(email)) {
-            alert('Неправильный формат email');
-            return;
-        }
+    if (!validateEmail(email)) {
+        alert('Неправильный формат email');
+        return;
+    }
 
-        if (password.trim() === '') {
-            alert('Пароль не может быть пустым');
-            return;
-        }
+    if (password.trim() === '') {
+        alert('Пароль не может быть пустым');
+        return;
+    }
 
-        // Сохранение данных пользователя
-        const user = { email, role };
-        console.log('Вход выполнен:', user);
+    // Сохранение данных пользователя
+    const user = { email, role };
+    console.log('Вход выполнен:', user);
 
-        // Перенаправление на другую страницу
-        //window.location.href = 'https://media.tenor.com/Iccl_wfwIdwAAAAM/despicable-me-minions.gif';
-    });
+    // Вывод сообщения о успешном входе
+    alert('Вы успешно вошли');
+
+    // Перенаправление на другую страницу
+    // window.location.href = 'https://media.tenor.com/Iccl_wfwIdwAAAAM/despicable-me-minions.gif';
+});
 
     return loginForm;
 }
