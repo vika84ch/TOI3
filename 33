@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# Исходные данные
+data="ФИО: Иванов Иван Иванович | Дата рождения: 01.01.1990 | Место рождения: Москва | Место проживания: Санкт-Петербург | Номер школы: 123 | Full Name: Ivanov Ivan Ivanovich | Date of Birth: 01.01.1990 | Place of Birth: Moscow | Place of Residence: Saint Petersburg | School Number: 123"
+
+# Преобразование в верхний регистр
+data_uppercase=$(echo "$data" | tr 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя' 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ')
+
+# Количество строк
+total_lines=500
+
+# Функция для измерения времени выполнения
+measure_time() {
+    local stage_name=$1
+    local command=$2
+    local start_time=$(date +%s%N)  # Начальное время в наносекундах
+    echo "Начало этапа: $stage_name"
+    eval "$command"  # Выполнение команды
+    local end_time=$(date +%s%N)    # Конечное время в наносекундах
+    local duration=$(( (end_time - start_time) / 1000000 ))  # Время в миллисекундах
+    echo "Этап '$stage_name' занял: $duration мс"
+}
+
+# Очистка существующих файлов
+> output_cp866.txt
+> output_uppercase.txt
+> output_windows1251.txt
+> output_translit.txt
+
+# Время начала выполнения скрипта
+script_start_time=$(date +%s%N)
+
+# Этап 1: Конвертация в кодировку CP866 и запись в файл
+measure_time "Конвертация в CP866" "
+    for ((i = 1; i <= $total_lines; i++)); do
+        echo \"$data\" | iconv -f UTF-8 -t CP866 >> output_cp866.txt
+    done
+"
+
+# Этап 2: Поднятие регистра и запись в файл
+measure_time "Поднятие регистра" "
+    for ((i = 1; i <= $total_lines; i++)); do
+        echo \"$data_uppercase\" | iconv -f UTF-8 -t CP866 >> output_uppercase.txt
+    done
+"
+
+# Этап 3: Конвертация в кодировку Windows-1251 и запись в файл
+measure_time "Конвертация в Windows-1251" "
+    for ((i = 1; i <= $total_lines; i++)); do
+        echo \"$data_uppercase\" | iconv -f UTF-8 -t WINDOWS-1251 >> output_windows1251.txt
+    done
+"
+
+# Этап 4: Транслитерация и запись в файл
+measure_time "Транслитерация" "
+    # Преобразуем файл в ISO-8859-5, применяем tr, затем преобразуем обратно в Windows-1251
+    iconv -f WINDOWS-1251 -t ISO-8859-5 output_windows1251.txt | tr '°ІБµЅєјѕАВЕГ' 'ABCEHKMOPTXY' | iconv -f ISO-8859-5 -t WINDOWS-1251 > output_translit.txt
+"
+
+# Общее время выполнения скрипта
+script_end_time=$(date +%s%N)
+script_duration=$(( (script_end_time - script_start_time) / 1000000 ))
+echo "Общее время выполнения скрипта: $script_duration мс" 
